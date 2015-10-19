@@ -32,11 +32,12 @@ Prototype
 
                 extract(IP ip)
 Return value
-	The IPv4 address embedded in "ip", or NULL.
+        The IPv4 address embedded in "ip", or NULL.
 Description
         Extracts the embedded IPv4 address from "ip" and returns it.
 Example
         ::
+
                 set req.http.X-Forwarded-For = rfc6052.extract(client.ip);
 
 is_v4embedded
@@ -47,9 +48,9 @@ Prototype
 
                 is_v4embedded(IP ip)
 Return value
-	Boolean.
+        Boolean.
 Description
-	Used to check whether or not "ip" is an IPv4-embedded IPv6 or not.
+        Used to check whether or not "ip" is an IPv4-embedded IPv6 or not.
 Example
         ::
 
@@ -65,12 +66,13 @@ Prototype
 
                 prefix(STRING prefix)
 Return value
-	None.
+        None.
 Description
         Sets the RFC6052 translation prefix used. Default: 64:ff9b::/96.
         Note: Only /96 supported. Do _not_ include the netmask.
 Example
         ::
+
                 # Set the RFC6052 translation prefix to 2001:db8::/96
                 prefix("2001:db8:64::");
 
@@ -82,13 +84,14 @@ Prototype
 
                 replace(IP ip)
 Return value
-	None.
+        None.
 Description
         Extracts the embedded IPv4 address from "ip", and uses it to perform an
         in-place replacement of "ip". No replacement is performed if "ip"
         didn't contain an IPv4-embedded IPv6 address to begin with.
 Example
         ::
+
                 rfc6052.replace(client.ip);
                 # client.ip now contains the embedded IPv4 address
 
