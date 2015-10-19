@@ -1,0 +1,54 @@
+#
+# Copyright Redpill Linpro AS (c) 2015.
+#
+# (vmodtool requires this format.)
+#
+
+$Module rfc6052 3 RFC6052 VMOD
+
+DESCRIPTION
+===========
+
+This VMOD provides a set of helper functions for dealing with RFC6052
+IPv4-embedded IPv6 address in VCL.
+
+It is particularly useful when operating the Varnish Cache in an SIIT-DC
+environment.
+
+$Event init
+$Function IP extract(PRIV_VCL, IP)
+
+Extracts an IPv4-embedded IPv6 address from IP and returns it. If IP doesn't
+contain an IPv4-embedded IPv6 address, returns NULL.
+
+$Function BOOL is_v4embedded(PRIV_VCL, IP)
+
+Checks whether or not IP contains an IPv4-embedded IPv6 address.
+
+$Function VOID prefix(PRIV_VCL, STRING)
+
+Configures the RFC6052 prefix in use. The default is 64:ff9b::/96.  Note: Only
+/96 currently supported. Do *not* include the prefix length in STRING.
+
+$Function VOID replace(PRIV_VCL, IP)
+
+Extracts and IPv4-embedded IPv6 address from IP, and uses it to overwrite IP.
+If IP doesn't contain an IPv4-embedded IPv6 address, IP is left untouched.
+
+BUGS AND LIMITATIONS
+====================
+
+Currently, only /96 prefixes are supported.
+
+Doing rfc6052.replace(client.ip) in vcl_recv doesn't make varnishncsa(1) to
+show the embedded IPv4 address. This is (probably) a limitation in Varnish
+Cache).
+
+Send any bug reports to the GitHub repo linked to under MORE INFORMATION.
+
+MORE INFORMATION
+================
+
+https://github.com/toreanderson/libvmod-rfc6052
+
+https://tools.ietf.org/html/draft-ietf-v6ops-siit-dc
