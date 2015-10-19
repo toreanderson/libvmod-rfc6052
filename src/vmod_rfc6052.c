@@ -14,7 +14,7 @@
 int init(const struct vrt_ctx *ctx, struct vmod_priv *priv,
 	 enum vcl_event_e e) {
 	/* Default to the Well-Known Prefix 64:ff9b::/96 */
-	if(!priv->priv)
+	if(e == VCL_EVENT_LOAD)
 		vmod_prefix(ctx, priv, "64:ff9b::");
 	return 0;
 }
